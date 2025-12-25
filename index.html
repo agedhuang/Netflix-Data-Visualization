@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Netflix</title>
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.11.10/lib/p5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+    <script src="sketch.js"></script>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Netflix Intro Animation -->
+    <div id="intro-overlay">
+      <div class="netflix-intro" letter="N">
+        <div class="helper-1">
+          <div class="effect-brush">
+            <span class="fur-31"></span><span class="fur-30"></span><span class="fur-29"></span><span class="fur-28"></span><span class="fur-27"></span><span class="fur-26"></span><span class="fur-25"></span><span class="fur-24"></span><span class="fur-23"></span><span class="fur-22"></span><span class="fur-21"></span><span class="fur-20"></span><span class="fur-19"></span><span class="fur-18"></span><span class="fur-17"></span><span class="fur-16"></span><span class="fur-15"></span><span class="fur-14"></span><span class="fur-13"></span><span class="fur-12"></span><span class="fur-11"></span><span class="fur-10"></span><span class="fur-9"></span><span class="fur-8"></span><span class="fur-7"></span><span class="fur-6"></span><span class="fur-5"></span><span class="fur-4"></span><span class="fur-3"></span><span class="fur-2"></span><span class="fur-1"></span>
+          </div>
+          <div class="effect-lumieres">
+            <span class="lamp-1"></span><span class="lamp-2"></span><span class="lamp-3"></span><span class="lamp-4"></span><span class="lamp-5"></span><span class="lamp-6"></span><span class="lamp-7"></span><span class="lamp-8"></span><span class="lamp-9"></span><span class="lamp-10"></span><span class="lamp-11"></span><span class="lamp-12"></span><span class="lamp-13"></span><span class="lamp-14"></span><span class="lamp-15"></span><span class="lamp-16"></span><span class="lamp-17"></span><span class="lamp-18"></span><span class="lamp-19"></span><span class="lamp-20"></span><span class="lamp-21"></span><span class="lamp-22"></span><span class="lamp-23"></span><span class="lamp-24"></span><span class="lamp-25"></span><span class="lamp-26"></span><span class="lamp-27"></span><span class="lamp-28"></span>
+          </div>
+        </div>
+        <div class="helper-2">
+          <div class="effect-brush">
+            <span class="fur-31"></span><span class="fur-30"></span><span class="fur-29"></span><span class="fur-28"></span><span class="fur-27"></span><span class="fur-26"></span><span class="fur-25"></span><span class="fur-24"></span><span class="fur-23"></span><span class="fur-22"></span><span class="fur-21"></span><span class="fur-20"></span><span class="fur-19"></span><span class="fur-18"></span><span class="fur-17"></span><span class="fur-16"></span><span class="fur-15"></span><span class="fur-14"></span><span class="fur-13"></span><span class="fur-12"></span><span class="fur-11"></span><span class="fur-10"></span><span class="fur-9"></span><span class="fur-8"></span><span class="fur-7"></span><span class="fur-6"></span><span class="fur-5"></span><span class="fur-4"></span><span class="fur-3"></span><span class="fur-2"></span><span class="fur-1"></span>
+          </div>
+        </div>
+        <div class="helper-3">
+          <div class="effect-brush">
+            <span class="fur-31"></span><span class="fur-30"></span><span class="fur-29"></span><span class="fur-28"></span><span class="fur-27"></span><span class="fur-26"></span><span class="fur-25"></span><span class="fur-24"></span><span class="fur-23"></span><span class="fur-22"></span><span class="fur-21"></span><span class="fur-20"></span><span class="fur-19"></span><span class="fur-18"></span><span class="fur-17"></span><span class="fur-16"></span><span class="fur-15"></span><span class="fur-14"></span><span class="fur-13"></span><span class="fur-12"></span><span class="fur-11"></span><span class="fur-10"></span><span class="fur-9"></span><span class="fur-8"></span><span class="fur-7"></span><span class="fur-6"></span><span class="fur-5"></span><span class="fur-4"></span><span class="fur-3"></span><span class="fur-2"></span><span class="fur-1"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Canvas容器 - 用于自动滚动 -->
+    <div id="canvas-container"></div>
+
+    <!-- 可拖拽指示线 -->
+    <div id="indicator-line">
+      <div id="indicator-handle"></div>
+    </div>
+
+    <!-- 收起/展开按钮（独立定位，始终可见） -->
+    <button id="toggle-bar-btn" class="toggle-btn" aria-label="Toggle info bar">
+      <svg class="toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path id="toggle-icon-path" d="M6 9l6 6 6-6" />
+      </svg>
+    </button>
+
+    <!-- 全局预览切换按钮（药丸样式） -->
+    <div id="toggle-overview-container" class="overview-toggle-container">
+      <button id="toggle-overview-btn" class="overview-toggle-btn" aria-label="Toggle overview mode">
+        <span class="toggle-slider"></span>
+        <span class="toggle-icon-left">
+          <!-- Browse/Timeline Icon -->
+          <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="7" width="20" height="10" rx="2" ry="2"></rect>
+            <line x1="6" y1="7" x2="6" y2="17"></line>
+            <line x1="10" y1="7" x2="10" y2="17"></line>
+            <line x1="14" y1="7" x2="14" y2="17"></line>
+            <line x1="18" y1="7" x2="18" y2="17"></line>
+          </svg>
+        </span>
+        <span class="toggle-icon-right">
+          <!-- Overview/Grid Icon -->
+          <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="7" height="7"></rect>
+            <rect x="14" y="3" width="7" height="7"></rect>
+            <rect x="14" y="14" width="7" height="7"></rect>
+            <rect x="3" y="14" width="7" height="7"></rect>
+          </svg>
+        </span>
+      </button>
+    </div>
+
+    <!-- 底部固定信息栏 -->
+    <div id="bottom-bar">
+      <div class="bar-content">
+        <!-- 左侧：电影信息 -->
+        <div class="info-section">
+          <h2>Movie Info</h2>
+          <div id="movie-info">
+            <p class="hint">Click on a movie bar to see details</p>
+          </div>
+        </div>
+
+        <!-- 右侧：颜色图例 -->
+        <div class="legend-section">
+          <h2>Genre Colors</h2>
+          <div class="legend-grid">
+            <div class="legend-item"><span class="color-box" style="background: rgb(255, 0, 50)"></span>Action</div>
+            <div class="legend-item"><span class="color-box" style="background: rgb(255, 80, 0)"></span>Adventure</div>
+            <div class="legend-item"><span class="color-box" style="background: rgb(50, 200, 255)"></span>Animation</div>
+            <div class="legend-item"><span class="color-box" style="background: rgb(0, 180, 255)"></span>Comedy</div>
+            <div class="legend-item"><span class="color-box" style="background: rgb(180, 0, 30)"></span>Crime</div>
+            <div class="legend-item"><span class="color-box" style="background: rgb(0, 10, 80)"></span>Drama</div>
+            <div class="legend-item"><span class="color-box" style="background: rgb(100, 100, 255)"></span>Fantasy</div>
+            <div class="legend-item"><span class="color-box" style="background: rgb(80, 0, 40)"></span>Horror</div>
+            <div class="legend-item"><span class="color-box" style="background: rgb(50, 50, 150)"></span>Mystery</div>
+            <div class="legend-item"><span class="color-box" style="background: rgb(255, 0, 100)"></span>Romance</div>
+            <div class="legend-item"><span class="color-box" style="background: rgb(0, 150, 255)"></span>Sci-Fi</div>
+            <div class="legend-item"><span class="color-box" style="background: rgb(0, 0, 0)"></span>Thriller</div>
+          </div>
+          <p style="color: #999; font-size: 12px; margin-top: 10px; font-style: italic">* Mixed genres show blended colors</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
