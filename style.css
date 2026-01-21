@@ -1,0 +1,1181 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* 禁用body滚动，使用容器滚动 */
+  background: black;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+}
+
+/* Netflix Intro Animation */
+#intro-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000000;
+  z-index: 20000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  transition: opacity 0.8s ease-out, visibility 0.8s ease-out;
+}
+
+#intro-overlay.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* New class for seamless transition */
+#intro-overlay.transparent-bg {
+  background-color: transparent;
+}
+
+#intro-overlay.transparent-bg .netflix-intro::before {
+  opacity: 0;
+  transition: opacity 0.5s ease-out;
+}
+
+#intro-overlay .netflix-intro {
+  display: block;
+  position: relative;
+  width: 300px;
+  height: 300px;
+  overflow: hidden;
+  animation-name: zoom-in;
+  animation-delay: 0.5s;
+  animation-duration: 3.5s;
+  animation-timing-function: cubic-bezier(0.85, 0, 0.15, 1); /* More dynamic ease-in-out-expo style */
+  animation-fill-mode: forwards;
+  background-size: 4000px;
+  background-position: -1950px 0;
+}
+#intro-overlay .netflix-intro::before {
+  content: "";
+  position: absolute;
+  display: block;
+  background-color: #000000;
+  width: 150%;
+  height: 30%;
+  left: -25%;
+  bottom: -27%;
+  border-radius: 50%;
+  z-index: 5;
+  transform-origin: left center;
+  background-size: 4000px;
+  background-position: -1950px 0;
+}
+#intro-overlay .netflix-intro[letter=N] {
+  transform-origin: 67.2px center;
+}
+#intro-overlay .netflix-intro[letter=N] .helper-1 {
+  width: 58.5px;
+  height: 100%;
+  background-color: rgba(228, 9, 19, 0.5);
+  left: 67.2px;
+  top: 0;
+  transform: rotate(180deg);
+  animation-name: fading-lumieres-box;
+  animation-duration: 2s;
+  animation-delay: 0.6s;
+  animation-fill-mode: forwards;
+}
+#intro-overlay .netflix-intro[letter=N] .helper-1 .effect-brush {
+  animation-name: brush-moving;
+  animation-duration: 2.5s;
+  animation-fill-mode: forwards;
+  animation-delay: 1.2s;
+}
+#intro-overlay .netflix-intro[letter=N] .helper-1 .effect-brush [class*=fur-] {
+  bottom: 0;
+  height: 40%;
+}
+#intro-overlay .netflix-intro[letter=N] .helper-3 {
+  width: 19%;
+  height: 150%;
+  left: 40.5%;
+  top: -25%;
+  transform: rotate(-19.5deg);
+  box-shadow: 0px 0px 35px -12px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+}
+#intro-overlay .netflix-intro[letter=N] .helper-3 .effect-brush {
+  animation-name: brush-moving;
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
+  animation-delay: 0.8s;
+}
+#intro-overlay .netflix-intro[letter=N] .helper-2 {
+  width: 19.5%;
+  height: 100%;
+  left: 57.8%;
+  top: 0;
+  transform: rotate(180deg);
+  overflow: hidden;
+}
+#intro-overlay .netflix-intro[letter=N] .helper-2 .effect-brush {
+  animation-name: brush-moving;
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
+  animation-delay: 0.5s;
+}
+
+#intro-overlay .netflix-intro [class*=helper-] {
+  position: absolute;
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-brush {
+  position: absolute;
+  width: 100%;
+  height: 300%;
+  top: 0;
+  overflow: hidden;
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-brush::before {
+  display: block;
+  content: "";
+  position: absolute;
+  background-color: #e40913;
+  width: 100%;
+  height: 70%;
+  box-shadow: none; /* Removed glow for flat look */
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-brush [class*=fur-] {
+  display: block;
+  position: absolute;
+  bottom: 10%;
+  height: 30%;
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-brush .fur-1 {
+  left: 0%;
+  width: 3.8%;
+  background: linear-gradient(to bottom, #e40913 0%, #e40913 15%, rgba(0, 0, 0, 0) 81%, rgba(0, 0, 0, 0) 100%);
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-brush .fur-2 {
+  left: 3.8%;
+  width: 2.8%;
+  background: linear-gradient(to bottom, #e40913 0%, #e40913 10%, rgba(0, 0, 0, 0) 62%, rgba(0, 0, 0, 0) 100%);
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-brush .fur-3 {
+  left: 6.6%;
+  width: 4.8%;
+  background: linear-gradient(to bottom, #e40913 0%, #e40913 37%, rgba(0, 0, 0, 0) 100%);
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-brush .fur-4 {
+  left: 11.4%;
+  width: 4%;
+  background: linear-gradient(to bottom, #e40913 0%, #e40913 23%, rgba(0, 0, 0, 0) 100%);
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-brush .fur-5 {
+  left: 15.4%;
+  width: 4%;
+  background: linear-gradient(to bottom, #e40913 0%, #e40913 15%, rgba(0, 0, 0, 0) 86%, rgba(0, 0, 0, 0) 100%);
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-brush .fur-6 {
+  left: 19.4%;
+  width: 2.5%;
+  background: linear-gradient(to bottom, #e40913 0%, #e40913 27%, rgba(0, 0, 0, 0) 89%, rgba(0, 0, 0, 0) 100%);
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-brush .fur-7 {
+  left: 21.9%;
+  width: 4%;
+  background: linear-gradient(to bottom, #e40913 0%, #e40913 20%, rgba(0, 0, 0, 0) 100%);
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-brush .fur-8 {
+  left: 25.9%;
+  width: 2%;
+  background: linear-gradient(to bottom, #e40913 0%, #e40913 30%, rgba(0, 0, 0, 0) 100%);
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-brush .fur-9 {
+  left: 27.9%;
+  width: 4%;
+  background: linear-gradient(to bottom, #e40913 0%, #e40913 35%, rgba(0, 0, 0, 0) 95%, rgba(0, 0, 0, 0) 100%);
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-brush .fur-10 {
+  left: 31.9%;
+  width: 3.5%;
+  background: linear-gradient(to bottom, #e40913 0%, #e40913 39%, rgba(0, 0, 0, 0) 95%, rgba(0, 0, 0, 0) 100%);
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-brush .fur-11 {
+  left: 35.4%;
+  width: 2%;
+  background: linear-gradient(to bottom, #e40913 0%, #e40913 34%, rgba(0, 0, 0, 0) 95%, rgba(0, 0, 0, 0) 100%);
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-brush .fur-12 {
+  left: 37.4%;
+  width: 2.6%;
+  background: linear-gradient(to bottom, #e40913 0%, #e40913 22%, rgba(0, 0, 0, 0) 95%, rgba(0, 0, 0, 0) 100%);
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-brush .fur-13 {
+  left: 40%;
+  width: 6%;
+  background: linear-gradient(to bottom, #e40913 0%, #e40913 47%, rgba(0, 0, 0, 0) 100%);
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-brush .fur-14 {
+  left: 46%;
+  width: 2%;
+  background: linear-gradient(to bottom, #e40913 0%, #e40913 36%, rgba(0, 0, 0, 0) 100%);
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-brush .fur-15 {
+  left: 48%;
+  width: 5.5%;
+  background: linear-gradient(to bottom, #e40913 0%, #e40913 29%, rgba(0, 0, 0, 0) 100%);
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-brush .fur-16 {
+  left: 53.5%;
+  width: 3%;
+  background: linear-gradient(to bottom, #e40913 0%, #e40913 39%, rgba(0, 0, 0, 0) 95%, rgba(0, 0, 0, 0) 100%);
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-brush .fur-17 {
+  left: 56.5%;
+  width: 4.1%;
+  background: linear-gradient(to bottom, #e40913 0%, #e40913 45%, rgba(0, 0, 0, 0) 100%);
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-brush .fur-18 {
+  left: 60.6%;
+  width: 2.4%;
+  background: linear-gradient(to bottom, #e40913 0%, #e40913 34%, rgba(0, 0, 0, 0) 100%);
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-brush .fur-19 {
+  left: 63%;
+  width: 4%;
+  background: linear-gradient(to bottom, #e40913 0%, #e40913 47%, rgba(0, 0, 0, 0) 100%);
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-brush .fur-20 {
+  left: 67%;
+  width: 1.5%;
+  background: linear-gradient(to bottom, #e40913 0%, #e40913 27%, rgba(0, 0, 0, 0) 95%, rgba(0, 0, 0, 0) 100%);
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-brush .fur-21 {
+  left: 68.5%;
+  width: 2.8%;
+  background: linear-gradient(to bottom, #e40913 0%, #e40913 37%, rgba(0, 0, 0, 0) 100%);
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-brush .fur-22 {
+  left: 71.3%;
+  width: 2.3%;
+  background: linear-gradient(to bottom, #e40913 0%, #e40913 9%, rgba(0, 0, 0, 0) 100%);
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-brush .fur-23 {
+  left: 73.6%;
+  width: 2.2%;
+  background: linear-gradient(to bottom, #e40913 0%, #e40913 28%, rgba(0, 0, 0, 0) 92%, rgba(0, 0, 0, 0) 100%);
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-brush .fur-24 {
+  left: 75.8%;
+  width: 1%;
+  background: linear-gradient(to bottom, #e40913 0%, #e40913 37%, rgba(0, 0, 0, 0) 100%);
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-brush .fur-25 {
+  left: 76.8%;
+  width: 2.1%;
+  background: linear-gradient(to bottom, #e40913 0%, #e40913 28%, rgba(0, 0, 0, 0) 100%);
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-brush .fur-26 {
+  left: 78.9%;
+  width: 4.1%;
+  background: linear-gradient(to bottom, #e40913 0%, #e40913 34%, rgba(0, 0, 0, 0) 100%);
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-brush .fur-27 {
+  left: 83%;
+  width: 2.5%;
+  background: linear-gradient(to bottom, #e40913 0%, #e40913 21%, rgba(0, 0, 0, 0) 100%);
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-brush .fur-28 {
+  left: 85.5%;
+  width: 4.5%;
+  background: linear-gradient(to bottom, #e40913 0%, #e40913 39%, rgba(0, 0, 0, 0) 100%);
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-brush .fur-29 {
+  left: 90%;
+  width: 2.8%;
+  background: linear-gradient(to bottom, #e40913 0%, #e40913 30%, rgba(0, 0, 0, 0) 100%);
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-brush .fur-30 {
+  left: 92.8%;
+  width: 3.5%;
+  background: linear-gradient(to bottom, #e40913 0%, #e40913 19%, rgba(0, 0, 0, 0) 100%);
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-brush .fur-31 {
+  left: 96.3%;
+  width: 3.7%;
+  background: linear-gradient(to bottom, #e40913 0%, #e40913 37%, rgba(0, 0, 0, 0) 100%);
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-lumieres {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  animation-name: showing-lumieres;
+  animation-duration: 2s;
+  animation-delay: 1.6s;
+  animation-fill-mode: forwards;
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-lumieres [class*=lamp-] {
+  position: absolute;
+  display: block;
+  height: 100%;
+  box-shadow: 0px 0px 10px 0px rgba(228, 9, 19, 0.75);
+  background: var(--color);
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-lumieres [class*=lamp-]::before {
+  position: absolute;
+  content: " ";
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--color);
+  box-shadow: 0px 0px 10px 0px rgba(228, 9, 19, 0.75);
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-lumieres .lamp-1 {
+  --color: #ff0100;
+  z: 6;
+  left: 0.7%;
+  width: 1%;
+  animation-delay: 1.43s;
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-lumieres .lamp-1::before {
+  left: 41%;
+  animation-delay: 1.61s;
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-lumieres .lamp-2 {
+  --color: #ffde01;
+  left: 2.2%;
+  width: 1.4%;
+  animation-delay: 1.72s;
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-lumieres .lamp-2::before {
+  left: 153%;
+  animation-delay: 0.05s;
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-lumieres .lamp-3 {
+  --color: #ff00cc;
+  left: 5.8%;
+  width: 2.1%;
+  animation-delay: 0.45s;
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-lumieres .lamp-3::before {
+  left: 140%;
+  animation-delay: 0.16s;
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-lumieres .lamp-4 {
+  --color: #04fd8f;
+  left: 10.1%;
+  width: 2%;
+  animation-delay: 0.21s;
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-lumieres .lamp-4::before {
+  left: 158%;
+  animation-delay: 0.5s;
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-lumieres .lamp-5 {
+  --color: #ff0100;
+  left: 12.9%;
+  width: 1.4%;
+  animation-delay: 1.05s;
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-lumieres .lamp-5::before {
+  left: 114%;
+  animation-delay: 1.28s;
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-lumieres .lamp-6 {
+  --color: #ff9600;
+  left: 15.3%;
+  width: 2.8%;
+  animation-delay: 0.94s;
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-lumieres .lamp-6::before {
+  left: 104%;
+  animation-delay: 0.47s;
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-lumieres .lamp-7 {
+  --color: #0084ff;
+  left: 21.2%;
+  width: 2.5%;
+  animation-delay: 0.96s;
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-lumieres .lamp-7::before {
+  left: 113%;
+  animation-delay: 1.28s;
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-lumieres .lamp-8 {
+  --color: #f84006;
+  left: 25%;
+  width: 2.5%;
+  animation-delay: 0.15s;
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-lumieres .lamp-8::before {
+  left: 110%;
+  animation-delay: 0.46s;
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-lumieres .lamp-9 {
+  --color: #ffc601;
+  left: 30.5%;
+  width: 3%;
+  animation-delay: 0.54s;
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-lumieres .lamp-9::before {
+  left: 92%;
+  animation-delay: 0.39s;
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-lumieres .lamp-10 {
+  --color: #ff4800;
+  left: 36.3%;
+  width: 3%;
+  animation-delay: 0.21s;
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-lumieres .lamp-10::before {
+  left: 173%;
+  animation-delay: 1.59s;
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-lumieres .lamp-11 {
+  --color: #fd0100;
+  left: 41%;
+  width: 2.2%;
+  animation-delay: 1.18s;
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-lumieres .lamp-11::before {
+  left: 29%;
+  animation-delay: 0.65s;
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-lumieres .lamp-12 {
+  --color: #01ffff;
+  left: 44.2%;
+  width: 2.6%;
+  animation-delay: 1.87s;
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-lumieres .lamp-12::before {
+  left: 80%;
+  animation-delay: 1.96s;
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-lumieres .lamp-13 {
+  --color: #ffc601;
+  left: 51.7%;
+  width: 0.5%;
+  animation-delay: 1.27s;
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-lumieres .lamp-13::before {
+  left: 55%;
+  animation-delay: 1.66s;
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-lumieres .lamp-14 {
+  --color: #ffc601;
+  left: 52.1%;
+  width: 1.8%;
+  animation-delay: 0.89s;
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-lumieres .lamp-14::before {
+  left: 141%;
+  animation-delay: 1.21s;
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-lumieres .lamp-15 {
+  --color: #0078fe;
+  left: 53.8%;
+  width: 2.3%;
+  animation-delay: 1.11s;
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-lumieres .lamp-15::before {
+  left: 15%;
+  animation-delay: 1.38s;
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-lumieres .lamp-16 {
+  --color: #0080ff;
+  left: 57.2%;
+  width: 2%;
+  animation-delay: 0.15s;
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-lumieres .lamp-16::before {
+  left: 62%;
+  animation-delay: 0.6s;
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-lumieres .lamp-17 {
+  --color: #ffae01;
+  left: 62.3%;
+  width: 2.9%;
+  animation-delay: 1.83s;
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-lumieres .lamp-17::before {
+  left: 10%;
+  animation-delay: 0.05s;
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-lumieres .lamp-18 {
+  --color: #ff00bf;
+  left: 65.8%;
+  width: 1.7%;
+  animation-delay: 1.78s;
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-lumieres .lamp-18::before {
+  left: 178%;
+  animation-delay: 0.93s;
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-lumieres .lamp-19 {
+  --color: #a601f4;
+  left: 72.8%;
+  width: 0.8%;
+  animation-delay: 0.11s;
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-lumieres .lamp-19::before {
+  left: 36%;
+  animation-delay: 0.76s;
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-lumieres .lamp-20 {
+  --color: #f30b34;
+  left: 74.3%;
+  width: 2%;
+  animation-delay: 0.35s;
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-lumieres .lamp-20::before {
+  left: 129%;
+  animation-delay: 1.15s;
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-lumieres .lamp-21 {
+  --color: #ff00bf;
+  left: 79.8%;
+  width: 2%;
+  animation-delay: 0.28s;
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-lumieres .lamp-21::before {
+  left: 42%;
+  animation-delay: 1.13s;
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-lumieres .lamp-22 {
+  --color: #04fd8f;
+  left: 78.2%;
+  width: 2%;
+  animation-delay: 1.1s;
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-lumieres .lamp-22::before {
+  left: 23%;
+  animation-delay: 1.89s;
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-lumieres .lamp-23 {
+  --color: #01ffff;
+  left: 78.5%;
+  width: 2%;
+  animation-delay: 1.21s;
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-lumieres .lamp-23::before {
+  left: 34%;
+  animation-delay: 0.15s;
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-lumieres .lamp-24 {
+  --color: #a201ff;
+  left: 85.3%;
+  width: 1.1%;
+  animation-delay: 1.44s;
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-lumieres .lamp-24::before {
+  left: 158%;
+  animation-delay: 0.42s;
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-lumieres .lamp-25 {
+  --color: #ec0014;
+  left: 86.9%;
+  width: 1.1%;
+  animation-delay: 1.23s;
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-lumieres .lamp-25::before {
+  left: 153%;
+  animation-delay: 1.84s;
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-lumieres .lamp-26 {
+  --color: #0078fe;
+  left: 88.8%;
+  width: 2%;
+  animation-delay: 0.08s;
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-lumieres .lamp-26::before {
+  left: 26%;
+  animation-delay: 0.63s;
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-lumieres .lamp-27 {
+  --color: #ff0036;
+  left: 92.4%;
+  width: 2.4%;
+  animation-delay: 1.89s;
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-lumieres .lamp-27::before {
+  left: 80%;
+  animation-delay: 1.68s;
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-lumieres .lamp-28 {
+  --color: #06f98c;
+  left: 96.2%;
+  width: 2.1%;
+  animation-delay: 1.23s;
+}
+#intro-overlay .netflix-intro [class*=helper-] .effect-lumieres .lamp-28::before {
+  left: 197%;
+  animation-delay: 0.46s;
+}
+
+@keyframes brush-moving {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
+}
+@keyframes fading-out {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes lumieres-moving-right {
+  0% {
+    transform: translate(0);
+  }
+  40% {
+    transform: translate(-10px) scaleX(1);
+  }
+  50% {
+    transform: translate(-60px);
+  }
+  100% {
+    transform: translate(-120px) scaleX(3);
+  }
+}
+@keyframes lumieres-moving-left {
+  0% {
+    transform: translate(0);
+  }
+  40% {
+    transform: translate(10px) scaleX(1);
+  }
+  50% {
+    transform: translate(60px);
+  }
+  100% {
+    transform: translate(120px) scaleX(3);
+  }
+}
+@keyframes zoom-in {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: translateX(calc(-50vw + 82.8px)) scale(60);
+  }
+}
+@keyframes showing-lumieres {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes fading-lumieres-box {
+  0% {
+    background-color: rgba(228, 9, 19, 0.5);
+  }
+  100% {
+    background-color: rgba(228, 9, 19, 0);
+  }
+}
+
+/* Canvas容器 - 用于自动滚动 */
+#canvas-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: auto; /* 禁用平滑滚动，使用JavaScript控制 */
+  -webkit-overflow-scrolling: touch; /* Enable smooth scrolling on iOS/Safari */
+  will-change: scroll-position; /* Hint browser for scrolling performance */
+}
+
+/* p5.js canvas 样式 */
+canvas {
+  display: block;
+  margin: 0;
+  padding: 0;
+  will-change: transform; /* 优化性能 */
+}
+
+/* Canvas wrapper for CSS 3D transform */
+#canvas-wrapper {
+  position: relative;
+  transform-style: preserve-3d;
+  will-change: transform;
+  backface-visibility: hidden; /* 优化性能 */
+}
+
+/* Canvas分段样式 - 添加平滑过渡 */
+.canvas-segment {
+  transition: transform 0.15s ease-out;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform-origin: 50% 50%;
+  will-change: transform;
+}
+
+/* 悬浮信息栏 - Apple Liquid Glass Style */
+#bottom-bar {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 60px);
+  max-width: 1400px;
+  min-height: 180px;
+  
+  /* Liquid Glass Effect */
+  background: rgba(30, 30, 30, 0.4); /* Highly transparent dark base */
+  backdrop-filter: blur(50px) saturate(180%); /* Heavy blur + saturation boost */
+  -webkit-backdrop-filter: blur(50px) saturate(180%);
+  
+  border-radius: 32px; /* Larger border radius */
+  border: 1px solid rgba(255, 255, 255, 0.12); /* Subtle glass edge */
+  
+  /* Complex shadow for depth */
+  box-shadow: 
+    0 20px 50px rgba(0, 0, 0, 0.5), /* Deep drop shadow */
+    inset 0 1px 1px rgba(255, 255, 255, 0.2), /* Top highlight */
+    inset 0 0 20px rgba(255, 255, 255, 0.02); /* Inner glow */
+    
+  z-index: 1000;
+  overflow: hidden;
+  transition: all 0.5s cubic-bezier(0.32, 0.72, 0, 1); /* Apple-like spring physics */
+}
+
+/* 收起状态 */
+#bottom-bar.collapsed {
+  bottom: -450px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-50%) translateY(20px);
+}
+
+/* 收起时内容隐藏 */
+#bottom-bar.collapsed .bar-content {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+/* 收起/展开按钮（独立定位，始终固定在屏幕底部） */
+.toggle-btn {
+  position: fixed;
+  bottom: 230px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 50px;
+  
+  /* Liquid Glass Style */
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(50px) saturate(180%);
+  -webkit-backdrop-filter: blur(50px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 
+    0 8px 32px 0 rgba(0, 0, 0, 0.3),
+    inset 0 1px 1px rgba(255, 255, 255, 0.1);
+    
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1002;
+  transition: all 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.toggle-btn.collapsed {
+  bottom: 20px;
+}
+
+.toggle-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateX(-50%) scale(1.1);
+  box-shadow: 
+    0 15px 40px rgba(0, 0, 0, 0.4),
+    inset 0 1px 1px rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.toggle-btn:active {
+  transform: translateX(-50%) scale(0.95);
+}
+
+.toggle-icon {
+  width: 24px;
+  height: 24px;
+  color: rgba(255, 255, 255, 0.9);
+  transition: transform 0.3s ease;
+}
+
+.toggle-btn.collapsed .toggle-icon {
+  transform: rotate(180deg);
+}
+
+/* 按钮位置会根据信息栏状态通过JavaScript动态调整 */
+
+/* 收起时图标旋转 */
+#bottom-bar.collapsed .toggle-icon {
+  transform: rotate(180deg);
+}
+
+/* 全局预览切换按钮（右上角，药丸样式） */
+.overview-toggle-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1003;
+}
+
+.overview-toggle-btn {
+  position: relative;
+  width: 80px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(50px) saturate(180%);
+  -webkit-backdrop-filter: blur(50px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 4px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+
+.overview-toggle-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.overview-toggle-btn:active {
+  transform: scale(0.98);
+}
+
+.overview-toggle-btn.active {
+  background: rgba(229, 9, 20, 0.3);
+  border-color: rgba(229, 9, 20, 0.3);
+}
+
+.overview-toggle-btn.active .toggle-slider {
+  transform: translateX(38px);
+  background: #ffffff;
+  box-shadow: 0 2px 10px rgba(229, 9, 20, 0.4);
+}
+
+.toggle-slider {
+  position: absolute;
+  left: 4px;
+  top: 4px;
+  width: 32px;
+  height: 32px;
+  background: #ffffff;
+  border-radius: 16px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.toggle-icon-left,
+.toggle-icon-right {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  color: rgba(255, 255, 255, 0.7);
+  transition: color 0.3s ease;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.overview-toggle-btn.active .toggle-icon-left {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.overview-toggle-btn.active .toggle-icon-right {
+  color: #e50914; /* Netflix Red for active state */
+}
+
+.overview-toggle-btn:not(.active) .toggle-icon-left {
+  color: #e50914; /* Netflix Red for active state */
+}
+
+.overview-toggle-btn:not(.active) .toggle-icon-right {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.bar-content {
+  display: flex;
+  height: 100%;
+  padding: 25px 35px;
+  gap: 50px;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+/* 左侧电影信息区 */
+.info-section {
+  flex: 1;
+  min-width: 400px;
+}
+
+.info-section h2 {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 15px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+#movie-info {
+  color: #ddd;
+}
+
+#movie-info .hint {
+  color: #999;
+  font-style: italic;
+  font-size: 25px;
+}
+
+#movie-info .movie-title {
+  color: white;
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  line-height: 1.2;
+  letter-spacing: -0.5px;
+}
+
+#movie-info .movie-meta {
+  color: #ccc;
+  font-size: 20px;
+  margin-bottom: 8px;
+}
+
+#movie-info .movie-genres {
+  color: #aaa;
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+/* 右侧颜色图例区 */
+.legend-section {
+  flex: 1;
+  min-width: 350px;
+  max-width: 600px;
+}
+
+.legend-section h2 {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+.legend-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px 15px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  color: #ddd;
+  font-size: 13px;
+}
+
+.color-box {
+  width: 16px;
+  height: 16px;
+  border-radius: 3px;
+  margin-right: 6px;
+  flex-shrink: 0;
+}
+
+/* 指示线样式 */
+#indicator-line {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  width: 2px;
+  height: 100vh; /* 充满整个屏幕高度 */
+  background: white;
+  z-index: 999; /* 指示线z-index最小，在信息栏下方 */
+  transform: translateX(-50%);
+  pointer-events: none; /* 禁用交互，固定位置 */
+}
+
+#indicator-handle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 8px;
+  height: 30px;
+  background: rgba(255, 255, 255, 0.8);
+  border: 2px solid white;
+  border-radius: 4px;
+  pointer-events: none; /* 禁用交互 */
+}
+
+/* 悬停提示框样式 */
+#hover-tooltip {
+  position: fixed;
+  background: rgba(30, 30, 30, 0.95);
+  border: 1px solid rgba(100, 100, 100, 0.8);
+  border-radius: 8px;
+  padding: 12px;
+  min-width: 200px;
+  max-width: 300px;
+  z-index: 2000;
+  pointer-events: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+}
+
+#hover-tooltip .tooltip-title {
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 6px;
+  line-height: 1.3;
+}
+
+#hover-tooltip .tooltip-meta {
+  color: #ccc;
+  font-size: 12px;
+  margin-bottom: 6px;
+}
+
+#hover-tooltip .tooltip-genres {
+  color: #aaa;
+  font-size: 11px;
+  margin-bottom: 4px;
+  line-height: 1.4;
+}
+
+#hover-tooltip .tooltip-views {
+  color: #999;
+  font-size: 10px;
+  margin-top: 4px;
+}
+/* Mobile Responsive Styles */
+@media screen and (max-width: 768px) {
+  /* Adjust Bottom Bar */
+  #bottom-bar {
+    width: calc(100% - 20px);
+    bottom: 10px;
+    height: 60vh; /* Fixed height to ensure button positioning */
+    min-height: auto;
+    overflow-y: auto;
+    border-radius: 24px;
+    padding-bottom: 10px;
+  }
+
+  /* Stack content vertically */
+  .bar-content {
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+  }
+
+  /* Adjust Info Section */
+  .info-section {
+    min-width: 100%;
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-right: 0;
+    padding-bottom: 20px;
+  }
+
+  /* Adjust Legend Section */
+  .legend-section {
+    min-width: 100%;
+    width: 100%;
+    padding-left: 0;
+  }
+
+  /* Adjust Legend Grid */
+  .legend-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  
+  /* Adjust Title Size */
+  #movie-title {
+    font-size: 20px;
+    margin-bottom: 8px;
+  }
+  
+  /* Adjust Meta Info */
+  .meta-info {
+    flex-wrap: wrap;
+    gap: 8px;
+    font-size: 12px;
+  }
+  
+  /* Adjust Toggle Button Position */
+  .toggle-btn {
+    bottom: calc(60vh + 20px); /* Position exactly above the 60vh bar */
+    width: 40px;
+    height: 40px;
+  }
+  
+  .toggle-btn.collapsed {
+    bottom: 20px !important;
+  }
+  
+  /* Adjust Overview Toggle */
+  .overview-toggle-container {
+    top: 10px;
+    right: 10px;
+  }
+  
+  .overview-toggle-btn {
+    width: 70px;
+    height: 36px;
+    padding: 0; /* Remove padding to fully control spacing */
+    justify-content: center; /* Helper for internal layout */
+  }
+  
+  .overview-toggle-btn .toggle-icon-left,
+  .overview-toggle-btn .toggle-icon-right {
+    width: 35px; /* Half of container width (70px) */
+    height: 36px; /* Full container height */
+  }
+  
+  .toggle-slider {
+    width: 28px;
+    height: 28px;
+    top: 4px; /* (36 - 28) / 2 */
+    left: 4px; /* Center in left half: (35 - 28) / 2 + correction */
+  }
+  
+  .overview-toggle-btn.active .toggle-slider {
+    transform: translateX(34px); /* Move to right half center: 70 - 28 - 4 - 4 */
+  }
+}
